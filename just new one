@@ -5,7 +5,6 @@ def p(pr):
     print(pr)
 con = sqlite3.connect('db.sl3', 5)
 cur = con.cursor()
-
 while True:
     a = int(input("mode(1,2,3,4,5)"))
     if a == 1:
@@ -15,7 +14,7 @@ while True:
         amo = int(input("amount = "))
         cur.execute(f"INSERT INTO Products  (code, price, name, made, amount )  VALUES ('code = {r.randint(1000000000, 9999999999)}','price = {price}','Name = {n}', 'made in = {s}', 'amount = {amo}');")
         con.commit()
-        cur.execute('SELECT VALUES rowid, code, price, name, made, amount FROM Products;')
+        cur.execute('SELECT rowid, code, price, name, made, amount FROM Products;')
         con.commit()
         res = cur.fetchall()
         p(res)
@@ -27,9 +26,13 @@ while True:
         na = int(input(" id = "))
         cur.execute(f"SELECT rowid, code, price, name, made, amount FROM Products WHERE rowid = {na};")
         con.commit()
+        res = cur.fetchall()
+        p(res)
     elif a == 4:
         cur.execute('SELECT rowid, code, price, name, made, amount FROM Products;')
         con.commit()
+        res = cur.fetchall()
+        p(res)
     elif a == 5:
         break
     elif a == 696:
@@ -90,7 +93,6 @@ while True:
         '''
         p("\033[31m {}".format(t7))
     else:
-        t = f"We`re sorry but it`s error 404\n we don`t find this mode ({a}) "
+        t = f"We`re sorry but it`s error 404\n we don`t find this mode ({a})\ntry to write another one"
         p("\033[31m {}".format(t))
-        break
 con.close()
