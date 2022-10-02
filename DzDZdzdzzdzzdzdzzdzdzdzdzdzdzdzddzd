@@ -1,0 +1,36 @@
+import sqlite3
+import random
+r = random
+def p(pr):
+    print(pr)
+con = sqlite3.connect('db.sl3', 5)
+cur = con.cursor()
+
+while True:
+    a = int(input("mode(1,2,3,4)"))
+    if a == 1:
+        l = int(input("age = "))
+        n = input("name = ")
+        s = input("second name = ")
+        cur.execute(f"INSERT INTO m (age, salat, name, second )  VALUES ('age = {l}','$$$ = {r.randint(1000, 100000000000000)}','Name = {n}', 'Surname = {s}');")
+        con.commit()
+        con.commit()
+        cur.execute('SELECT rowid, age, salat, name, second FROM m;')
+        con.commit()
+        res = cur.fetchall()
+        p(res)
+    elif a == 2:
+        u = int(input("id = "))
+        cur.execute(f"DELETE FROM m WHERE rowid = {u}")
+        print(f"{u} = deleted")
+    elif a == 3:
+        na = int(input(" id = "))
+        cur.execute(f"SELECT rowid, age, salat, name, second FROM m WHERE rowid={na};")
+        cur.execute('SELECT rowid, age, salat, name, second FROM m;')
+        res = cur.fetchall()
+        p(res)
+    elif a == 4 :
+        break
+    else:
+        p("error 404")
+con.close()
